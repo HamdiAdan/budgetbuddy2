@@ -1,18 +1,22 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
+import { Button,Stack } from 'react-bootstrap'
+import Container  from 'react-bootstrap/Container'
+
 
 function App() {
-  const [count, setCount] = useState(0)
+  return <Container className='my-4'>
+    <Stack direction="horizontal" gap="2" className="mb-4">
+      <h1 className='me-auto'>Budget</h1>
+      <Button variant='primary'>Add Budget</Button>
+      <Button variant='outline-primary'>Add Expense</Button>
 
-  return (
-    <>
-      <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Voluptatibus, fugiat. Doloribus illum repudiandae obcaecati! Eligendi, suscipit doloribus neque maxime exercitationem aliquid blanditiis, facere amet quae porro iure magnam iste cupiditate.</p>
-      <button>Save</button>
-
-    </>
-  )
+    </Stack>
+    <div style={{display:"grid", gridTemplateColumns:"repeat(auto-fill, minmax(300px, 1fr))", gap:"1rem", alignItems:'flex-start'}}>
+      <BudegetCard></BudegetCard>
+    </div>
+  </Container>
+  
 }
 
 export default App
