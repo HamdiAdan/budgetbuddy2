@@ -1,12 +1,16 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import App from './src/components/App.jsx'
+import App from './components/App.jsx'
 import './index.css'
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { BudgetProvider } from './contexts/BudgetContext'
 
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <App />
+    <BudgetProvider>
+       <App />
+    </BudgetProvider>
+    
   </React.StrictMode>,
 )
