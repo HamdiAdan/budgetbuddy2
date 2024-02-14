@@ -2,10 +2,14 @@ import { useState } from 'react'
 import { Button,Stack } from 'react-bootstrap'
 import Container  from 'react-bootstrap/Container'
 import BudgetCard from './BudgetCard'
+import AddBugetModal from './AddBudgetModal'
 
 
 function App() {
-  return <Container className='my-4'>
+ 
+
+return <>
+  <Container className='my-4'>
     <Stack direction="horizontal" gap="2" className="mb-4">
       <h1 className='me-auto'>Budgets</h1>
       <Button variant='primary'>Add Budget</Button>
@@ -23,6 +27,9 @@ function App() {
 
     </div>
   </Container>
+  <AddBugetModal show/>
+</>  
+  
   
 }
 
