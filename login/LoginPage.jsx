@@ -1,20 +1,25 @@
 import { useState } from 'react';
 import { Container, Row, Col, Button, Form } from 'react-bootstrap';
 import FullPageLoader from '../components/FullPageLoader';
-import { auth } from '..firebase/config.js'
+import { auth } from '../firebase/config.js'
 import { createUserWithEmailAndPassword,
-    signInWithEmailAndPassword
+    signInWithEmailAndPassword,
+    sendPasswordResetEmail
 }  from "firebase/auth";
+import { useNavigate } from 'react-router-dom';
+
 
 function LoginPage() {
   const [isLoading, setIsLoading] = useState(false);
   const [loginType, setLoginType] = useState('login');
   const [userCredentials,setUserCredential]=useState({});
   const [error,setError]=useState("");
+  const navigate = useNavigate();
+
 
 
   function handleCredentials(e){
-    setUserCredential({...userCredentials,[e.target.name]:e.target.value})
+    setUserCredential({...userCredentials,[e.target.name]:e.target.value});
   }
 
   function handleSignup(e){
@@ -32,6 +37,29 @@ function LoginPage() {
   });
   }
 
+  function handleLogin(e){
+    e.preventDefault();
+    setError("");
+
+    signInWithEmailAndPassword(auth, userCredentials.email, userCredentials.password)
+  .then((userCredential) => {
+    
+    const user = userCredential.user;
+    
+  })
+  .catch((error) => {
+    setError(error.message);
+  });
+  }
+
+  function handlePasswordReset(){
+    const email=prompt('Please type in your Email');
+    sendPasswordResetEmail(auth,email);
+    alert('Email sent! Check your inbox for further instructions');
+  }
+
+
+
   return (
     <>
       {isLoading && <FullPageLoader />}
@@ -43,7 +71,7 @@ function LoginPage() {
             <div className="login-type">
               <Button
                 variant={loginType === 'login' ? 'primary' : 'secondary'}
-                onClick={() => setLoginType('login')}>
+                onClick={(e) => {handleLogin(e)}}>
                 Login
               </Button>
               <Button
@@ -63,13 +91,14 @@ function LoginPage() {
               </Form.Group>
               <Button variant="primary" type="submit" className="btn-block">
                 {loginType === 'login' ? 'Login' : 'Sign Up'}
+                
               </Button>
               {error && (
                 <Alert variant="danger" className="mt-3">
                   {error}
                 </Alert>
               )}
-              <p className="forgot-password">Forgot Password?</p>
+              <p onClick={handlePasswordReset} className="forgot-password">Forgot Password?</p>
             </Form>
 
               
