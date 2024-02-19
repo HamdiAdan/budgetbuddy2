@@ -1,0 +1,24 @@
+/* dark-mode.css */
+
+  body.dark-mode {
+    background-color: #222; /* Dark background color */
+    color: #fff; /* Light text color */
+  }
+  
+  .dark-mode-content .btn {
+    background-color: #333; /* Darker button background color */
+    border-color: #333; /* Darker button border color */
+    color: #fff; /* Light text color for buttons */
+  }
+  
+  .dark-mode-content .btn-outline-primary {
+    color: #007bff; /* Primary color for outline buttons */
+    border-color: #007bff; /* Primary color for outline buttons */
+  }
+  
+  .dark-mode-content .btn-outline-primary:hover {
+    background-color: #007bff; /* Hover background color for outline buttons */
+    border-color: #007bff; /* Hover border color for outline buttons */
+    color: #fff; /* Light text color for hover state */
+  }
+  

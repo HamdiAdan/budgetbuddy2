@@ -1,40 +1,51 @@
-import { Button, Stack } from "react-bootstrap"
-import Container from "react-bootstrap/Container"
-import AddBudgetModal from "./components/AddBudgetModal"
-import AddExpenseModal from "./components/AddExpenseModal"
-import ViewExpensesModal from "./components/ViewExpensesModal"
-import BudgetCard from "./components/BudgetCard"
-import UncategorizedBudgetCard from "./components/UncategorizedBudgetCard"
-import TotalBudgetCard from "./components/TotalBudgetCard"
-import { useState } from "react"
-import { UNCATEGORIZED_BUDGET_ID, useBudgets } from "./contexts/BudgetsContext"
-import Footer from "./components/Footer"
+import React, { useState } from "react";
+import { Button, Stack } from "react-bootstrap";
+import Container from "react-bootstrap/Container";
+import AddBudgetModal from "./components/AddBudgetModal";
+import AddExpenseModal from "./components/AddExpenseModal";
+import ViewExpensesModal from "./components/ViewExpensesModal";
+import BudgetCard from "./components/BudgetCard";
+import UncategorizedBudgetCard from "./components/UncategorizedBudgetCard";
+import TotalBudgetCard from "./components/TotalBudgetCard";
+import { UNCATEGORIZED_BUDGET_ID, useBudgets } from "./contexts/BudgetsContext";
+import Footer from "./components/Footer";
 
 function App() {
-  const [showAddBudgetModal, setShowAddBudgetModal] = useState(false)
-  const [showAddExpenseModal, setShowAddExpenseModal] = useState(false)
-  const [viewExpensesModalBudgetId, setViewExpensesModalBudgetId] = useState()
-  const [addExpenseModalBudgetId, setAddExpenseModalBudgetId] = useState()
-  const { budgets, getBudgetExpenses } = useBudgets()
+  const [showAddBudgetModal, setShowAddBudgetModal] = useState(false);
+  const [showAddExpenseModal, setShowAddExpenseModal] = useState(false);
+  const [viewExpensesModalBudgetId, setViewExpensesModalBudgetId] = useState();
+  const [addExpenseModalBudgetId, setAddExpenseModalBudgetId] = useState();
+  const { budgets, getBudgetExpenses } = useBudgets();
+  const [darkMode, setDarkMode] = useState(false);
 
   function openAddExpenseModal(budgetId) {
-    setShowAddExpenseModal(true)
-    setAddExpenseModalBudgetId(budgetId)
+    setShowAddExpenseModal(true);
+    setAddExpenseModalBudgetId(budgetId);
+  }
+
+  function toggleDarkMode() {
+    setDarkMode(!darkMode);
+    // Toggle dark-mode class on the body element
+    document.body.classList.toggle("dark-mode", !darkMode);
   }
 
   return (
     <>
       <Container className="my-4">
         <Stack direction="horizontal" gap="2" className="mb-4">
-          <h1 className="me-auto">BudgetBuddy</h1>
+          <h1 className="me-auto">Budgets</h1>
           <Button variant="primary" onClick={() => setShowAddBudgetModal(true)}>
             Add Budget
           </Button>
           <Button variant="outline-primary" onClick={openAddExpenseModal}>
             Add Expense
           </Button>
+          <Button variant="secondary" onClick={toggleDarkMode}>
+            {darkMode ? "Light Mode" : "Dark Mode"}
+          </Button>
         </Stack>
         <div
+          className={darkMode ? "dark-mode-content" : ""}
           style={{
             display: "grid",
             gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))",
@@ -42,11 +53,11 @@ function App() {
             alignItems: "flex-start",
           }}
         >
-          {budgets.map(budget => {
+          {budgets.map((budget) => {
             const amount = getBudgetExpenses(budget.id).reduce(
               (total, expense) => total + expense.amount,
               0
-            )
+            );
             return (
               <BudgetCard
                 key={budget.id}
@@ -58,7 +69,7 @@ function App() {
                   setViewExpensesModalBudgetId(budget.id)
                 }
               />
-            )
+            );
           })}
           <UncategorizedBudgetCard
             onAddExpenseClick={openAddExpenseModal}
@@ -82,10 +93,9 @@ function App() {
         budgetId={viewExpensesModalBudgetId}
         handleClose={() => setViewExpensesModalBudgetId()}
       />
-      <Footer/>
+      <Footer />
     </>
-
-  )
+  );
 }
 
-export default App
+export default App;
