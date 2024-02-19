@@ -4,7 +4,7 @@ import App from './App';
 
 describe('App', () => {
   test('renders without crashing', () => {
-    const { getByText } = render(<App />);
+    const { getByText } = render(< App />);
     
     // Check if "Budgets" text is present
     const budgetsText = getByText('Budgets');
