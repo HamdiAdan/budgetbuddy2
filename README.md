@@ -15,8 +15,8 @@ The app will have the following functionalities:
 - Dark/light mode
 
 ## Technologies used
--React for functionality
--Bootstrap for styling
--Firebase for authentication
--Jest for test
+- React for functionality
+- Bootstrap for styling
+- Firebase for authentication
+- Jest for test
 
